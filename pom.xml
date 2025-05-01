@@ -17,7 +17,7 @@
     </properties>
 
     <modules>
-    <module>catelog-service</module>
+    <module>catalog-service</module>
     </modules>
 
 </project>
