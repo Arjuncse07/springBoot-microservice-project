@@ -13,22 +13,20 @@ class ProductController {
 
     private final ProductService productService;
 
-     ProductController(ProductService productService) {
+    ProductController(ProductService productService) {
         this.productService = productService;
     }
 
-
     @GetMapping
-    PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1") int pageNo ){
-      return productService.getProducts(pageNo);
+    PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1") int pageNo) {
+        return productService.getProducts(pageNo);
     }
 
     @GetMapping("/{code}")
-    ResponseEntity<Product> getProductByCode(@PathVariable String code){
-        return productService.getProductByCode(code)
-                 .map(ResponseEntity::ok)
-                 .orElseThrow(() ->  ProductNotFoundException.forCode(code));
+    ResponseEntity<Product> getProductByCode(@PathVariable String code) {
+        return productService
+                .getProductByCode(code)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> ProductNotFoundException.forCode(code));
     }
-
-
 }

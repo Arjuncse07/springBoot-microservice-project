@@ -29,6 +29,7 @@
     <properties>
         <java.version>21</java.version>
         <dockerImageName>arjundocker7000/bookstore-${project.artifactId}</dockerImageName>  <!-- Docker Image Config -->
+        <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
     </properties>
     <dependencies>
         <dependency>
@@ -166,7 +167,7 @@
             <plugin>
                 <groupId>com.diffplug.spotless</groupId>
                 <artifactId>spotless-maven-plugin</artifactId>
-                <version>2.43.0</version>
+                <version>${spotless-maven-plugin.version}</version>
                 <configuration>
                     <java>
                         <importOrder/>

@@ -1,4 +1,4 @@
-version: "3.8"
+# version: "3.8"
 name: 'spring-boot-microservice-project'
 services:
   catalog-service:
@@ -6,7 +6,7 @@ services:
     container_name: catalog-service
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-      - DB_URL = jdbc:postgresql://catalog-db:5432/postgres
+      - DB_URL=jdbc:postgresql://catalog-db:5432/postgres
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
     ports:
