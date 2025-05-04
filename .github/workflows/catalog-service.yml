@@ -23,7 +23,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
          java-version: '21'
-         distribution: 'temurin'
+         distribution: 'microsoft'  #Change the Java distribution to Microsoft OpenJDK
          cache: 'maven'
 
       - name: Build with Maven

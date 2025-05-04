@@ -30,6 +30,8 @@
         <java.version>21</java.version>
         <dockerImageName>arjundocker7000/bookstore-${project.artifactId}</dockerImageName>  <!-- Docker Image Config -->
         <spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
     </properties>
     <dependencies>
         <dependency>
