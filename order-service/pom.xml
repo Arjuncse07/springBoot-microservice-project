@@ -33,7 +33,6 @@
 		<springdoc-openapi.version>2.5.0</springdoc-openapi.version>
 		<spotless-maven-plugin.version>2.44.4</spotless-maven-plugin.version>
 		<dockerImageName>arjundocker7000/bookstore-${project.artifactId}</dockerImageName>  <!-- Docker Image Config -->
-
 	</properties>
 
 
