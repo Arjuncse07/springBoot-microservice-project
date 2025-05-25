@@ -24,9 +24,20 @@ class ProductController {
 
     @GetMapping("/{code}")
     ResponseEntity<Product> getProductByCode(@PathVariable String code) {
+        sleep(); // method to check resiliance time out of microservice
         return productService
                 .getProductByCode(code)
                 .map(ResponseEntity::ok)
                 .orElseThrow(() -> ProductNotFoundException.forCode(code));
     }
+
+    void sleep(){
+        try {
+            Thread.sleep(6000);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+
 }

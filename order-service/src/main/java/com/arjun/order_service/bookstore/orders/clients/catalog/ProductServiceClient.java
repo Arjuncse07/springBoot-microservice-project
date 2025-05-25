@@ -26,9 +26,10 @@ public class ProductServiceClient {
     public Optional<Product> getProductByCode(String code){
         log.info("Fetching product for code :: ", code);
         var product =
-                restClient.get().uri("/api/products/{code}",code)
-                        .retrieve()
-                        .body(Product.class);
+                restClient.get()
+                          .uri("/api/products/{code}",code)
+                          .retrieve()
+                          .body(Product.class);
         return Optional.ofNullable(product);
     }
 
