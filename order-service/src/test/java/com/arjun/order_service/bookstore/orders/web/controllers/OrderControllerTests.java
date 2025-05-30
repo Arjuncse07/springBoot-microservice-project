@@ -24,6 +24,7 @@ class OrderControllerTests extends AbstractIT {
 
         @Test
         void shouldCreateOrderSuccessfully() {
+            mockGetProductByCode("P100", "Product 1", new BigDecimal("25.50"));
             var payload =
                     """
                               {
@@ -44,7 +45,7 @@ class OrderControllerTests extends AbstractIT {
                                       {
                                           "code": "P100",
                                           "name": "Product 1",
-                                          "price": 25.5,
+                                          "price": 25.50,
                                           "quantity": 1
                                       }
                                   ]

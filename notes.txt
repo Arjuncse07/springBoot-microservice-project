@@ -1,0 +1,11 @@
+################# DOCKER COMMANDS ############################################
+
+1. To down/stop the container from running
+docker compose -f deployment/docker-compose/infra.yml down
+
+2.To remove container
+docker compose -f deployment/docker-compose/infra.yml rm -f
+
+
+3. To start container
+docker compose -f deployment/docker-compose/apps.yml up -d
