@@ -1,6 +1,7 @@
 package com.arjun.order_service.bookstore.orders.domain;
 
 import com.arjun.order_service.bookstore.orders.domain.models.CreateOrderRequest;
+import com.arjun.order_service.bookstore.orders.domain.models.OrderDTO;
 import com.arjun.order_service.bookstore.orders.domain.models.OrderItem;
 import com.arjun.order_service.bookstore.orders.domain.models.OrderStatus;
 import org.hibernate.query.Order;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class OrderMapper {
 
@@ -31,6 +33,23 @@ public class OrderMapper {
         }
         newOrder.setItems(orderItemEntities);
         return newOrder;
+    }
+
+    static OrderDTO convertToDTO(OrderEntity order){
+       Set<OrderItem> orderItems = order.getItems().stream()
+                .map(item -> new OrderItem(item.getCode(), item.getName(),item.getPrice(), item.getQuantity()))
+                .collect(Collectors.toSet());
+
+       return new OrderDTO(
+        order.getOrderNumber(),
+        order.getUserName(),
+        orderItems,
+        order.getCustomer(),
+        order.getDeliveryAddress(),
+        order.getStatus(),
+        order.getComments(),
+        order.getCreatedAt()
+       );
     }
 
 

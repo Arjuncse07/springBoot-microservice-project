@@ -8,6 +8,7 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.autoconfigure.jdbc.TestDatabaseAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.jdbc.Sql;
 
@@ -61,6 +62,18 @@ class OrderControllerTests extends AbstractIT {
 
         }
     }
+
+    /*  working on test data later  */
+    /*@Test
+    void shouldReturnBadRequestWhenMandatoryDataIsMissing(){
+        var payload = "ae";
+        given().contentType(ContentType.JSON)
+                .body(payload)
+                .when()
+                .post("/api/orders")
+                .then()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+    }*/
 
 
 }
