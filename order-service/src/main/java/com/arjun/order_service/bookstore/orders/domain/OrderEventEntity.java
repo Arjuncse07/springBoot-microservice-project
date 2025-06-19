@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 public class OrderEventEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "order_event_id_generator")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator = "order_event_id_generator")
     private Long id;
     @Column(nullable = false)
     private String orderNumber;

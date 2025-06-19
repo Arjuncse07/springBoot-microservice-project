@@ -1,10 +1,6 @@
 package com.arjun.order_service.bookstore.orders.domain;
 
-import com.arjun.order_service.bookstore.orders.domain.models.CreateOrderRequest;
-import com.arjun.order_service.bookstore.orders.domain.models.CreateOrderResponse;
-import com.arjun.order_service.bookstore.orders.domain.models.OrderDTO;
-import com.arjun.order_service.bookstore.orders.domain.models.OrderItem;
-import com.arjun.order_service.bookstore.orders.domain.models.OrderSummary;
+import com.arjun.order_service.bookstore.orders.domain.models.*;
 import jakarta.transaction.Transactional;
 import org.hibernate.query.Order;
 import org.slf4j.Logger;
@@ -23,21 +19,27 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final OrderValidator orderValidator;
+    private final  OrderEventService orderEventService;
 
 
-    OrderService(OrderRepository orderRepository, OrderValidator orderValidator){
+    OrderService(OrderRepository orderRepository,
+                 OrderValidator orderValidator,
+                 OrderEventService orderEventService){
         this.orderRepository = orderRepository;
         this.orderValidator = orderValidator;
+        this.orderEventService = orderEventService;
     }
 
-   /* ORDER CREATION */
-    public CreateOrderResponse createOrder(String userName, CreateOrderRequest request){
+    /* ORDER CREATION */
+    public CreateOrderResponse createOrder(String userName, CreateOrderRequest request) {
         orderValidator.validate(request);
-       OrderEntity newOrder = OrderMapper.convertToEntity(request);
-       newOrder.setUserName(userName);
-       OrderEntity savedOrder = this.orderRepository.save(newOrder);
-       log.info("Created Order with orderNumber={}",savedOrder.getOrderNumber());
-       return new CreateOrderResponse(savedOrder.getOrderNumber());
+        OrderEntity newOrder = OrderMapper.convertToEntity(request);
+        newOrder.setUserName(userName);
+        OrderEntity savedOrder = this.orderRepository.save(newOrder);
+        log.info("Created Order with orderNumber={}", savedOrder.getOrderNumber());
+        OrderCreatedEvent orderCreatedEvent = OrderEventMapper.buildOrderCreatedEvent(savedOrder);
+        orderEventService.save(orderCreatedEvent);
+        return new CreateOrderResponse(savedOrder.getOrderNumber());
     }
 
 

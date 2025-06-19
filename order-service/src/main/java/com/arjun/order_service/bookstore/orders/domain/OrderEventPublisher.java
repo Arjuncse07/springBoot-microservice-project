@@ -19,6 +19,11 @@ class OrderEventPublisher {
         this.properties = properties;
     }
 
+    /* Here [ Routing key :: Queue Name ]     */
+    private void send(String routingKey, Object payload) {
+        rabbitTemplate.convertAndSend(properties.orderEventsExchange(), routingKey, payload);
+    }
+
 
     public void publish(OrderCreatedEvent event){
         this.send(properties.newOrdersQueue(),event);
@@ -36,9 +41,6 @@ class OrderEventPublisher {
         this.send(properties.errorOrdersQueue(), event);
     }
 
-    private void send(String routingKey, Object payload) {
-        rabbitTemplate.convertAndSend(properties.orderEventsExchange(), routingKey, payload);
-    }
 
 
 

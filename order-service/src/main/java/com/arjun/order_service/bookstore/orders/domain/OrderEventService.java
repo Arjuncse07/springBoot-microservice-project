@@ -91,6 +91,7 @@ public class OrderEventService {
                          fromJsonPayload(event.getPayload(),OrderCreatedEvent.class);
                  orderEventPublisher.publish(orderCreatedEvent);
                  break;
+
              case ORDER_DELIVERED:
                  OrderDeliveredEvent orderDeliveredEvent =
                          fromJsonPayload(event.getPayload(), OrderDeliveredEvent.class);
