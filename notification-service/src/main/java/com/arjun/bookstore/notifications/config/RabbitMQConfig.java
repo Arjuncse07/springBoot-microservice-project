@@ -1,12 +1,8 @@
-package com.arjun.order_service.bookstore.orders.config;
+package com.arjun.bookstore.notifications.config;
 
-import com.arjun.order_service.ApplicationProperties;
+import com.arjun.bookstore.notifications.ApplicationProperties;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.QueueBuilder;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -29,63 +25,68 @@ public class RabbitMQConfig {
         return new DirectExchange(properties.orderEventsExchange());
     }
 
+    /*@Bean
+    public Queue createQueue(String queueName) {
+        if (queueName == null) {
+            throw new IllegalArgumentException("Queue name cannot be null");
+        }
+        return QueueBuilder.durable(queueName).build();
+    }*/
+
+
     @Bean
     Queue newOrdersQueue() {
-        return new Queue(properties.newOrdersQueue());
+        return QueueBuilder.durable(properties.newOrdersQueue()).build();
     }
 
     @Bean
     Binding newOrdersQueueBinding() {
-        return BindingBuilder
-                .bind(newOrdersQueue())
+        return BindingBuilder.bind(newOrdersQueue())
                 .to(exchange())
-                .with(properties.newOrdersQueue()); /*  Here we are providing routing key */
+                .with(properties.newOrdersQueue());
     }
 
-    /*  Queue for Deliver-Order */
     @Bean
     Queue deliveredOrderQueue() {
-        return new Queue(properties.deliveredOrdersQueue());
+        String queueName = properties.deliveredOrdersQueue();
+        if (queueName == null) {
+            throw new IllegalArgumentException("deliveredOrderQueue name cannot be null");
+        }
+        return QueueBuilder.durable(queueName).build();
     }
 
     @Bean
     Binding deliveredOrdersQueueBinding() {
-        return BindingBuilder
-                .bind(deliveredOrderQueue())
+        return BindingBuilder.bind(deliveredOrderQueue())
                 .to(exchange())
                 .with(properties.deliveredOrdersQueue());
     }
 
-    /*  Queue for Cancelled-Order */
     @Bean
     Queue cancelledOrdersQueue() {
-        return new Queue(properties.cancelledOrdersQueue());
+        return QueueBuilder.durable(properties.cancelledOrdersQueue()).build();
     }
 
     @Bean
     Binding cancelledOrdersQueueBinding() {
-        return BindingBuilder
-                .bind(cancelledOrdersQueue())
+        return BindingBuilder.bind(cancelledOrdersQueue())
                 .to(exchange())
                 .with(properties.cancelledOrdersQueue());
     }
 
-    /*  Queue for Error-Order queue */
     @Bean
     Queue errorOrdersQueue() {
-        return new Queue(properties.errorOrdersQueue());
+        return QueueBuilder.durable(properties.errorOrdersQueue()).build();
     }
 
     @Bean
     Binding errorOrdersQueueBinding() {
-        return BindingBuilder
-                .bind(errorOrdersQueue())
+        return BindingBuilder.bind(errorOrdersQueue())
                 .to(exchange())
                 .with(properties.errorOrdersQueue());
     }
 
 
-    /* Rabbit Template configuration for JSON message conversion */
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, ObjectMapper objectMapper) {
         final var rabbitTemplate = new RabbitTemplate(connectionFactory);

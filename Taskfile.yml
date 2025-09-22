@@ -24,6 +24,8 @@ tasks:
   build:
     cmds:
       - "{{.MVNW}} -pl catalog-service spring-boot:build-image -DskipTests"
+      - "{{.MVNW}} -pl order-service spring-boot:build-image -DskipTests"
+      - "{{.MVNW}} -pl api-gateway spring-boot:build-image -DskipTests"
 
   start_infra:
     cmds:
@@ -58,8 +60,19 @@ tasks:
       - task: sleep
       - task: start
 
+  #sleep:
+    #vars:
+      #DURATION: '{{default 5 .DURATION}}'
+    #cmds:
+     # - sleep {{.DURATION}}
+
   sleep:
     vars:
       DURATION: '{{default 5 .DURATION}}'
     cmds:
-      - sleep {{.DURATION}}
+      - |
+        if [ "{{OS}}" = "windows" ]; then
+          powershell -Command "Start-Sleep -Seconds {{.DURATION}}"
+        else
+          sleep {{.DURATION}}
+        fi

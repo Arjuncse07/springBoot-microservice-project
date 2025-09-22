@@ -1,11 +1,9 @@
-package com.arjun.order_service;
+package com.arjun.bookstore.notifications;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
-@ConfigurationProperties(prefix = "orders")
+@ConfigurationProperties(prefix = "notifications")
 public record ApplicationProperties(
-        String catalogServiceUrl, // Catalog-Service url for Inter-microservice communication using Rest-client
         String orderEventsExchange,
         String newOrdersQueue,
         String deliveredOrdersQueue,

@@ -9,10 +9,16 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @ConfigurationPropertiesScan
 @EnableScheduling
+//@EnableConfigurationProperties(ApplicationProperties.class)
 public class OrderServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(OrderServiceApplication.class, args);
+		var context = SpringApplication.run(OrderServiceApplication.class, args);
+
+		AppPropsTest bean = context.getBean(AppPropsTest.class);
+		bean.display();
+
+
 	}
 
 }
