@@ -19,7 +19,9 @@ class ProductController {
 
     @GetMapping
     PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1") int pageNo) {
+        System.out.println("Hello");
         return productService.getProducts(pageNo);
+
     }
 
     @GetMapping("/{code}")
