@@ -28,7 +28,7 @@ CREATE TABLE  users
     created_at      TIMESTAMP     NOT NULL DEFAULT now(),
     updated_at      TIMESTAMP,
 
-    PRIMARY KEY     (id)
+    PRIMARY KEY     (id),
 
     CONSTRAINT chk_local_has_password
        CHECK (
