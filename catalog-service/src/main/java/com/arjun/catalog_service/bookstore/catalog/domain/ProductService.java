@@ -36,9 +36,14 @@ public class ProductService {
                 productsPage.isLast(),
                 productsPage.hasNext(),
                 productsPage.hasPrevious());
+
     }
 
     public Optional<Product> getProductByCode(String code) {
         return productRepository.findByCode(code).map(ProductMapper::toProduct);
+    }
+
+    public static void demoMethod(){
+        System.out.println("Checking dolly code:::: ");
     }
 }
