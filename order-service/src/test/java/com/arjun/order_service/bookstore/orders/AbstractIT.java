@@ -70,3 +70,13 @@ public class AbstractIT {
 
 
 }
+
+
+/*
+--> OrderControllerTests calls mockGetProductByCode("P100", "Product 1", 25.50) before POST /api/orders
+    so OrderValidator “sees” catalog returning that price for P100, matching the order line item.
+
+--> AbstractIT also @Import(TestcontainersConfiguration.class), which starts PostgreSQL and RabbitMQ via @ServiceConnection—those are separate
+    from WireMock; WireMock is only the stand-in for catalog-service over HTTP.
+
+ */
