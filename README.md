@@ -2,34 +2,8 @@
 
 # Architecture
 
-                     ┌──────────────────────┐
-                     │     API Gateway       │ :8989
-                     │  (Spring Cloud GW)    │
-                     └────┬────────────┬─────┘
-                          │            │
-              /catalog/** │            │ /orders/**
-                          │            │
-               ┌──────────▼──┐  ┌──────▼──────────┐
-               │  Catalog    │  │   Order          │
-               │  Service    │  │   Service        │
-               │  :8081      │  │   :8082          │
-               └──────┬──────┘  └──┬──────┬────────┘
-                      │            │      │
-                      │            │   RabbitMQ
-                      │            │   :5672
-               ┌──────▼──────┐     │  ┌───▼────────────┐
-               │ catalog-db  │     │  │ Notification   │
-               │ PostgreSQL  │     │  │ Service :8083  │
-               │ :15432      │     │  └───┬────────────┘
-               └─────────────┘     │      │
-                           ┌───────▼──┐ ┌─▼──────────────┐
-                           │orders-db │ │notifications-db│
-                           │ :25432   │ │ :35432         │
-                           └──────────┘ └────────────────┘
-
-
-
-
+<img width="3096" height="3050" alt="main_diagram" src="https://github.com/user-attachments/assets/163a496c-090a-48b8-a1ee-cc29dab8ff67" />
+                   
 
 ## Microservices
 
