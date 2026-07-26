@@ -1,0 +1,6 @@
+package com.arjun.user_service.bookstore.users.config;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = "jwt")
+public record JwtProperties(String secret, long expirationMs) {}
