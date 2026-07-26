@@ -110,17 +110,8 @@
 
 # Project Structure
 
-springBoot-microservice-project-main/
-├── api-gateway/              # Spring Cloud Gateway
-├── catalog-service/          # Product catalog microservice
-├── order-service/            # Order management microservice
-├── notification-service/     # Event-driven notification service
-├── user-service/             # User auth microservice (JWT)
-├── deployment/
-│   └── docker-compose/
-│       ├── infra.yml         # PostgreSQL + RabbitMQ containers
-│       └── apps.yml          # Application containers
-├── .github/workflows/        # CI/CD pipelines
-├── Taskfile.yml              # Task runner commands
-└── pom.xml                   # Parent POM (multi-module)
+<img width="3800" height="2150" alt="project_structure" src="https://github.com/user-attachments/assets/5a7af785-44a4-4a5a-8823-c3bb4b6a47d8" />
+
+
+
 
