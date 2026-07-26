@@ -45,6 +45,7 @@
 - **Docker** (containerization via Spring Boot Buildpacks)
 - **React 18** + **Vite** + **TypeScript** + **Tailwind CSS**
 - <img width="2000" height="2734" alt="tech_stack_portrait" src="https://github.com/user-attachments/assets/464c2f36-716b-486a-8127-f5a4c8ac5108" />
+<img width="1800" height="2022" alt="flyway_migrations_portrait (1)" src="https://github.com/user-attachments/assets/ffd915bf-db2c-4564-8468-c6230cddac42" />
 
 
 ## Prerequisites
