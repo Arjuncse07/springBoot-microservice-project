@@ -36,6 +36,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.ai</groupId>
+                <artifactId>spring-ai-advisors-vector-store</artifactId>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -134,7 +140,7 @@ Version:
        Chat +         Vector Store    Spring AI
      Embeddings
 
-
+2026.02 : ai-advisor-vector-store : gives you Spring AI ChatClient advisors that plug a vector store into the chat pipeline for RAG (retrieval-augmented generation).
 
 
 -->

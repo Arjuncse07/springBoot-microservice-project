@@ -8,12 +8,13 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record CatalogPage (
         List<CatalogProduct> data,
-        long totalElement,
-        int pageNumber,
-        int totalPage,
-        @JsonProperty("first") boolean first,
-        @JsonProperty("last") boolean last,
-        boolean hasNext,
-        boolean hasPrevious){ }
+        @JsonProperty("totalElements") long totalElements,
+        @JsonProperty("pageNumber") int pageNumber,
+        @JsonProperty("totalPages") int totalPages,
+        @JsonProperty("isFirst") boolean first,
+        @JsonProperty("isLast") boolean last,
+        @JsonProperty("hasNext") boolean hasNext,
+        @JsonProperty("hasPrevious") boolean hasPrevious
+){ }
 
 

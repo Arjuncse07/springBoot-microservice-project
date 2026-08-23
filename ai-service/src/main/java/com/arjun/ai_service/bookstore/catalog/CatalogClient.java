@@ -6,6 +6,7 @@ import org.springframework.web.client.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 @Component
 public class CatalogClient {
@@ -19,8 +20,8 @@ public class CatalogClient {
         this.restClient = builder.baseUrl(catalogServiceUrl).build();
     }
 
-
-    public List<CatalogProduct> fetchAllProducts(){
+    /* This Part is under-discussion for scalability  */
+   /* public List<CatalogProduct> fetchAllProducts(){
         List<CatalogProduct> listOfCatalogProduct = new ArrayList<>();
         int page = 1;
         while(true){
@@ -42,10 +43,34 @@ public class CatalogClient {
             page++;
         }
         return listOfCatalogProduct;
+    }  */
+
+    /*
+    Streams catalog pages to a consumer - never loads full catalog into memory.
+    User list API only ( avoid GET /api/products/{code} - 6s sleep demo ).
+     */
+    public void forEachProductPage(int pageSize, Consumer<List<CatalogProduct>> pageConsumer){
+
+        int page = 1;
+        while (true){
+            int currentPage = page;
+            CatalogPage result = restClient
+                    .get()
+                    .uri(uriBuilder -> uriBuilder
+                            .path("/api/products")
+                            .queryParam("page",currentPage)
+                            .build()).retrieve().body(CatalogPage.class);
+
+            if(result == null || result.data() ==null || result.data().isEmpty()){
+                break;
+            }
+            pageConsumer.accept(result.data());
+            if (result.last() || !result.hasNext()){
+                break;
+            }
+            page++;
+        }
+
     }
-
-
-
-
 
 }
