@@ -25,6 +25,7 @@
         <module>api-gateway</module>
         <module>user-service</module>
         <module>ai-service</module>
+        <module>library-service</module>
     </modules>
 
 

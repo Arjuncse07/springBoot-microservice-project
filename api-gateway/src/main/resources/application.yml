@@ -47,6 +47,12 @@ spring:
                   - Path=/ai/**
               filters:
                   - RewritePath=/ai/?(?<segment>.*), /${segment}
+            - id: library-service
+              uri: ${LIBRARY_SERVICE_URL:http://localhost:8084}
+              predicates:
+                - Path=/library/**
+              filters:
+                - RewritePath=/library/?(?<segment>.*), /${segment}
 
           discovery:
             locator:
