@@ -1,17 +1,17 @@
 package com.arjun.ai_service.bookstore.ingest;
-
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.actuate.autoconfigure.wavefront.WavefrontProperties;
 import org.springframework.stereotype.Component;
 
-import java.util.logging.Logger;
+
 
 @Component
 public class CatalogIngestRunner implements ApplicationRunner {
 
-    private static final Logger log = (Logger) LoggerFactory.getLogger(CatalogIngestRunner.class);
+    private static final Logger log = LoggerFactory.getLogger(CatalogIngestRunner.class);
 
     private final CatalogIngestService ingestService;
 
