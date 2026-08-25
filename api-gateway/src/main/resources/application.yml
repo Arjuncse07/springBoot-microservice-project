@@ -41,6 +41,19 @@ spring:
                 - Path=/v3/api-docs/**
               filters:
                 - RewritePath=/v3/api-docs/?(?<segment>.*), /${segment}/v3/api-docs
+            - id: ai-service
+              uri: ${AI_SERVICE_URL:http://localhost:8086}
+              predicates:
+                  - Path=/ai/**
+              filters:
+                  - RewritePath=/ai/?(?<segment>.*), /${segment}
+            - id: library-service
+              uri: ${LIBRARY_SERVICE_URL:http://localhost:8084}
+              predicates:
+                - Path=/library/**
+              filters:
+                - RewritePath=/library/?(?<segment>.*), /${segment}
+
           discovery:
             locator:
               enabled: true

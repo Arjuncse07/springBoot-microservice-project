@@ -56,9 +56,29 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
       - CATALOG_SERVICE_URL=http://catalog-service:8081
       - ORDER_SERVICE_URL=http://order-service:8082
+      - LIBRARY_SERVICE_URL=http://library-service:8084
     ports:
       - "8989:8989"
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 700m
+
+  library-service:
+    image: arjun/bookstore-library-service
+    container_name: library-service
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - DB_URL=jdbc:postgresql://library-db:5432/postgres
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+    ports:
+      - "8084:8084"
+    restart: unless-stopped
+    depends_on:
+      library-db:
+        condition: service_healthy
     deploy:
       resources:
         limits:

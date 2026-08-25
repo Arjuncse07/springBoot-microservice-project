@@ -13,6 +13,7 @@
 | **catalog-service**      | 8081 | Product catalog (list, get by code)                |
 | **order-service**        | 8082 | Order creation, validation, event publishing       |
 | **notification-service** | 8083 | Listens to RabbitMQ order events                   |
+| **library-service**      | 8084 | Library copies, loans, and access cards (planned)  |
 | **user-service**         | 8085 | User registration, login, JWT authentication       |
 
 ## Infrastructure (Docker)
@@ -22,6 +23,7 @@
 | catalog-db            | postgres:16-alpine              | 15432     |
 | orders-db             | postgres:16-alpine              | 25432     |
 | notifications-db      | postgres:16-alpine              | 35432     |
+| library-db              | postgres:16-alpine              | 46432     |
 | user-db               | postgres:16-alpine              | 55432     |
 | bookstore-rabbitmq    | rabbitmq:3.12.11-management     | 5672 / 15672 |
 
@@ -66,7 +68,16 @@
 ## Run Backend Services
 - cd catalog-service && ./mvnw spring-boot:run
 - cd order-service && ./mvnw spring-boot:run
+- cd library-service && ./mvnw spring-boot:run
 - cd api-gateway && ./mvnw spring-boot:run
+
+### Verify library-service (after infra + services are up)
+
+```bash
+curl http://localhost:8084/api/ping
+curl http://localhost:8084/actuator/health
+curl http://localhost:8989/library/api/ping
+```
 
 ## Run Frontend 
 - cd ../bookstore-ui
@@ -80,6 +91,7 @@
 | Client → Gateway        | HTTP         | Path-based routing                              |
 | Gateway → Catalog       | HTTP         | `/catalog/**` → `http://catalog-service:8081`   |
 | Gateway → Orders        | HTTP         | `/orders/**` → `http://order-service:8082`      |
+| Gateway → Library       | HTTP         | `/library/**` → `http://library-service:8084`  |
 | Order → Catalog         | HTTP (sync)  | RestClient + Resilience4j retry/circuit breaker |
 | Order → RabbitMQ        | AMQP (async) | Outbox pattern: DB → cron job → exchange        |
 | RabbitMQ → Notification | AMQP (async) | `@RabbitListener` on `new-orders` queue         |
@@ -87,8 +99,18 @@
 
 # Project Structure
 
-<img width="3800" height="2150" alt="project_structure" src="https://github.com/user-attachments/assets/5a7af785-44a4-4a5a-8823-c3bb4b6a47d8" />
-
-
-
+springBoot-microservice-project-main/
+├── api-gateway/              # Spring Cloud Gateway
+├── catalog-service/          # Product catalog microservice
+├── order-service/            # Order management microservice
+├── notification-service/     # Event-driven notification service
+├── library-service/          # Library copies, loans, access cards
+├── user-service/             # User auth microservice (JWT)
+├── deployment/
+│   └── docker-compose/
+│       ├── infra.yml         # PostgreSQL + RabbitMQ containers
+│       └── apps.yml          # Application containers
+├── .github/workflows/        # CI/CD pipelines
+├── Taskfile.yml              # Task runner commands
+└── pom.xml                   # Parent POM (multi-module)
 
