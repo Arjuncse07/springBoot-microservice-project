@@ -2,34 +2,8 @@
 
 # Architecture
 
-                     ┌──────────────────────┐
-                     │     API Gateway       │ :8989
-                     │  (Spring Cloud GW)    │
-                     └────┬────────────┬─────┘
-                          │            │
-              /catalog/** │            │ /orders/**
-                          │            │
-               ┌──────────▼──┐  ┌──────▼──────────┐
-               │  Catalog    │  │   Order          │
-               │  Service    │  │   Service        │
-               │  :8081      │  │   :8082          │
-               └──────┬──────┘  └──┬──────┬────────┘
-                      │            │      │
-                      │            │   RabbitMQ
-                      │            │   :5672
-               ┌──────▼──────┐     │  ┌───▼────────────┐
-               │ catalog-db  │     │  │ Notification   │
-               │ PostgreSQL  │     │  │ Service :8083  │
-               │ :15432      │     │  └───┬────────────┘
-               └─────────────┘     │      │
-                           ┌───────▼──┐ ┌─▼──────────────┐
-                           │orders-db │ │notifications-db│
-                           │ :25432   │ │ :35432         │
-                           └──────────┘ └────────────────┘
-
-
-
-
+<img width="3096" height="3050" alt="main_diagram" src="https://github.com/user-attachments/assets/163a496c-090a-48b8-a1ee-cc29dab8ff67" />
+                   
 
 ## Microservices
 
@@ -72,6 +46,9 @@
 - **Testcontainers** (integration testing)
 - **Docker** (containerization via Spring Boot Buildpacks)
 - **React 18** + **Vite** + **TypeScript** + **Tailwind CSS**
+- <img width="2000" height="2734" alt="tech_stack_portrait" src="https://github.com/user-attachments/assets/464c2f36-716b-486a-8127-f5a4c8ac5108" />
+<img width="1800" height="2022" alt="flyway_migrations_portrait (1)" src="https://github.com/user-attachments/assets/ffd915bf-db2c-4564-8468-c6230cddac42" />
+
 
 ## Prerequisites
 
