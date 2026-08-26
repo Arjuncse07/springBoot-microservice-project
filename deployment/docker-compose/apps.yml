@@ -73,6 +73,7 @@ services:
       - DB_URL=jdbc:postgresql://library-db:5432/postgres
       - DB_USERNAME=postgres
       - DB_PASSWORD=postgres
+      - CATALOG_SERVICE_URL=http://api-gateway:8989/catalog
     ports:
       - "8084:8084"
     restart: unless-stopped
